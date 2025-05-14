@@ -51,7 +51,7 @@ router.get('/detalle/:idPedido', (req, res) => {
       s."ubicacionSucursal" AS "Ubicación",
       s."telefonoSucursal" AS "Teléfono",
       u."correo" AS "Correo",
-      CASE p."estatusPedido"
+      CASE p."estatusCliente"
           WHEN 1 THEN 'Pendiente'
           WHEN 2 THEN 'Autorizado'
           WHEN 3 THEN 'Curso'
