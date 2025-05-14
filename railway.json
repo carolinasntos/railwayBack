@@ -1,15 +1,13 @@
 {
     "build": {
-      "builder": "NIXPACKS",
-      "nixpacksPlan": {
+        "builder": "NIXPACKS",
+        "nixpacksPlan": {
         "phases": {
-          "install": {
+            "install": {
             "cmds": ["npm install"]
-          },
-          "start": {
-            "cmds": ["node server.js"]
-          }
+            }
         }
-      }
-    }
-  }
+        }
+    },
+    "start": "node server.js"
+}
