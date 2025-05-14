@@ -50,7 +50,7 @@ router.get('/detalle/:idPedido', (req, res) => {
       s."nombreSucursal" AS "Cliente",
       s."ubicacionSucursal" AS "Ubicación",
       s."telefonoSucursal" AS "Teléfono",
-      u."correo" AS "Correo",
+      u."correo" AS "Correo"
     FROM 
       "Pedido" p
     JOIN 
