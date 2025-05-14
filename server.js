@@ -47,6 +47,11 @@ app.use('/api/usuarios', usuarioRouter);
 //   });
 // }
 
+// Ruta raíz para pruebas
+app.get("/", (req, res) => {
+  res.send("API desplegada correctamente en Railway 🎉");
+});
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
