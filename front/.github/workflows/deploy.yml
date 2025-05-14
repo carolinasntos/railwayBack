@@ -3,7 +3,7 @@ name: Deploy Front to GitHub Pages
 on:
   push:
     branches:
-      - main  # o reemplaza con la rama donde trabajas
+      - main
 
 jobs:
   deploy:
