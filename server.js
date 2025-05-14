@@ -1,24 +1,26 @@
 // Importing necessary modules using ES Modules syntax
-import express from "express";
+//DESCOMENTAR 
+/*import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import dotenv from "dotenv";
-import userRoutes from "./routes/userRoutes.js";  // Importing the user routes
-import loginRoutes from "./routes/loginRoutes.js";  // Importing the login routes
-{/*import swaggerUI from "swagger-ui-express";*/}
-{/*import swaggerDocs from "./docs/swagger.js";*/}
-import reporteRoutes from "./routes/reporteRutas.js";  // Importing the reporte routes
-import path from "path";
+import userRoutes from "./routes/userRoutes.js";*/  // Importing the user routes
+//DESCOMENTAR import loginRoutes from "./routes/loginRoutes.js";  // Importing the login routes
+//import swaggerUI from "swagger-ui-express";
+//import swaggerDocs from "./docs/swagger.js";
+// DESCOMENTAR import reporteRoutes from "./routes/reporteRutas.js";  // Importing the reporte routes
+/*import path from "path";
 import adminCrudRoutes from "./routes/usuarioCRUDRutas.js";  // Import the admin routes to handle users
 import pedidosRouter from "./routes/pedidos.js";
-import usuarioRouter from "./routes/usuarioCRUDRutas.js"; 
+import usuarioRouter from "./routes/usuarioCRUDRutas.js";*/ //FIN
 // Initialize dotenv configuration
-dotenv.config();
+//DESCOENTAR
+/*dotenv.config();
 
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.use(morgan("dev"));
+app.use(morgan("dev"));/*
 
 // Set up routes
 app.use("/users", userRoutes);  // Existing user routes
@@ -27,6 +29,7 @@ app.use("/api/usuarios", adminCrudRoutes);  // New admin route to manage users
 app.use("/reportes", reporteRoutes);  // Existing report routes
 app.use("/api/pedidos", pedidosRouter);
 app.use('/api/usuarios', usuarioRouter);
+// FIN
 
 // Swagger Documentation
 {/*app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));*/}
@@ -48,11 +51,31 @@ app.use('/api/usuarios', usuarioRouter);
 // }
 
 // Ruta raíz para pruebas
-app.get("/", (req, res) => {
+//DESCOMENTAR 
+/*app.get("/", (req, res) => {
   res.send("API desplegada correctamente en Railway 🎉");
+});
+
+console.log("✅ Aplicación lista para iniciar Express");
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
+});*/
+
+import express from "express";
+
+const app = express();
+
+app.get("/", (req, res) => {
+  res.send("✅ Funciona correctamente sin rutas externas");
+});
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`✅ Servidor corriendo en el puerto ${PORT}`);
 });
