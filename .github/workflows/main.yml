@@ -21,8 +21,13 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install dependencies (with cache clearing)
+        run: |
+          rm -rf node_modules
+          npm install
+
+      - name: List available npm scripts (Debugging)
+        run: npm run
 
       - name: Build frontend
         run: npm run build
