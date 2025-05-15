@@ -3,7 +3,7 @@ name: Deploy Front to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - main  # Cambia si usas otra rama
 
 jobs:
   deploy:
@@ -29,8 +29,8 @@ jobs:
 
       - name: Configure Git Identity
         run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Initialize Git (needed for gh-pages)
         run: |
