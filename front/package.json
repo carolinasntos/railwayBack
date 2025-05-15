@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist --user \"carolinasntos <a01174992@tec.mx>\" --repo=https://git:${GH_TOKEN}@github.com/carolinasntos/railwayBack.git"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@fontsource/poppins": "^5.2.5",

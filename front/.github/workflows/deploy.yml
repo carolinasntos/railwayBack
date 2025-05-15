@@ -9,36 +9,42 @@ permissions:
   contents: write
 
 jobs:
-    build: 
-        runs-on: ubuntu-latest
-        steps:
-            -   name: Checkout 
-                uses: actions/checkout@v3
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: front
 
-            -   name: Configurar Node.js
-                uses: actions/setup-node@v3
-                with:
-                    node-version: '18'
-            
-            -   name: Instalar dependencias
-                run: npm install
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v3
 
-            -   name: Ejecutar lin
-                run: npm run lint
-                continue-on-error: true
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Instalar dependencias
+        run: npm install
 
-            -   name: Hacer pruebas
-                run: npm test
-                continue-on-error: true
-            
-            -   name: Build
-                run: npm run build
+      - name: Ejecutar lint
+        run: npm run lint
+        continue-on-error: true
 
-            -   name: Verificar output
-                run: ls -ls dist
+      - name: Hacer pruebas
+        run: npm test
+        continue-on-error: true
+      
+      - name: Build
+        run: npm run build
 
-            -   name: Deploy
-                uses: peaceiris/actions-gh-pages@v3
-                with:
-                    github_token: ${{ secrets.GITHUB_TOKEN }}
-                    publish_dir: ./dist
+      - name: Verificar output
+        run: ls -ls dist
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist
+          user_name: "carolinasntos"
+          user_email: "a01174992@tec.mx"
