@@ -9,7 +9,7 @@
         "dev": "concurrently \"npm run dev:backend\" \"npm run dev:front\"",
         "dev:backend": "nodemon server.js",
         "dev:front": "cd front && npm run dev",
-        "lint": "eslint ."
+        "lint": "eslint .",
         "all": "concurrently \"npm run dev:backend\" \"npm run dev:front\""
     },
     "keywords": [],
