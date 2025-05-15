@@ -16,7 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
@@ -29,15 +29,15 @@ jobs:
 
       - name: Configure Git Identity
         run: |
-          git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
 
-      - name: Deploy to GitHub Pages
+      - name: Initialize Git (needed for gh-pages)
         run: |
           git init
           git remote add origin https://github.com/${{ github.repository }}.git
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          npm run deploy
+
+      - name: Deploy to GitHub Pages
+        run: npm run deploy
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
