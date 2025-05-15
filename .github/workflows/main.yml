@@ -40,7 +40,9 @@ jobs:
       - name: Set Git user information and deploy
         run: |
           echo "Setting Git user information..."
-          git config --global user.email github-actions@github.com
+          git config user.email "github-actions@github.com"
+          git config user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
           git config --global user.name "github-actions"
           echo "Deploying to GitHub Pages..."
           npm run deploy
