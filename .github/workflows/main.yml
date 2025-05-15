@@ -32,25 +32,12 @@ jobs:
       - name: Build frontend
         run: npm run build
 
-      - name: Check if dist folder exists
-        run: ls -l dist/
-
-      - name: Set Git user information (for this repository)
+      - name: Set Git user information
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
 
-      - name: Clean git repository
-        run: |
-          git reset --hard
-          git clean -fd
-
       - name: Deploy to GitHub Pages
-        run: |
-          GH_USER="github-actions@github.com"
-          GH_NAME="github-actions"
-          git config --global user.email $GH_USER
-          git config --global user.name $GH_NAME
-          npm run deploy
+        run: npm run deploy
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
