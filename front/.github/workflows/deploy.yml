@@ -3,7 +3,10 @@ name: Deploy Front to GitHub Pages
 on:
   push:
     branches:
-      - main  # Cambia si usas otra rama
+      - main
+
+permissions:
+  contents: write
 
 jobs:
   deploy:
@@ -26,16 +29,6 @@ jobs:
 
       - name: Build frontend
         run: npm run build
-
-      - name: Configure Git Identity
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Initialize Git (needed for gh-pages)
-        run: |
-          git init
-          git remote add origin https://github.com/${{ github.repository }}.git
 
       - name: Deploy to GitHub Pages
         run: npm run deploy
