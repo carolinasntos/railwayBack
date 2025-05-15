@@ -32,9 +32,17 @@ jobs:
       - name: Build frontend
         run: npm run build
 
-      - name: Deploy to GitHub Pages
+      - name: Set Git user information
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+      - name: Commit changes (if any) to GitHub Pages
         run: |
           git -c user.name="github-actions" -c user.email="github-actions@github.com" commit -m "Deploy to GitHub Pages"
-          npm run deploy
+        continue-on-error: true  # Ignore any commit errors (e.g., if there are no changes)
+
+      - name: Deploy to GitHub Pages
+        run: npm run deploy
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
