@@ -32,11 +32,10 @@ jobs:
       - name: Build frontend
         run: npm run build
 
-      - name: Set Git user information
+      - name: Set Git user information (for this repository)
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
 
       - name: Deploy to GitHub Pages
         run: npm run deploy
