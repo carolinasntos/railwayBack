@@ -23,26 +23,31 @@ jobs:
 
       - name: Install dependencies (with cache clearing)
         run: |
+          echo "Removing node_modules and reinstalling dependencies"
           rm -rf node_modules
           npm install
 
       - name: List available npm scripts (Debugging)
-        run: npm run
+        run: |
+          echo "Listing npm scripts available:"
+          npm run
 
       - name: Build frontend
-        run: npm run build
-
-      - name: Set Git user information
         run: |
+          echo "Building frontend..."
+          npm run build
+
+      - name: Set Git user information and deploy
+        run: |
+          echo "Setting Git user information..."
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-
-      - name: Commit changes (if any) to GitHub Pages
-        run: |
-          git -c user.name="github-actions" -c user.email="github-actions@github.com" commit -m "Deploy to GitHub Pages"
-        continue-on-error: true  # Ignore any commit errors (e.g., if there are no changes)
-
-      - name: Deploy to GitHub Pages
-        run: npm run deploy
+          echo "Deploying to GitHub Pages..."
+          npm run deploy
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Debugging: Show Git Config
+        run: |
+          echo "Showing git config for debugging purposes:"
+          git config --list
