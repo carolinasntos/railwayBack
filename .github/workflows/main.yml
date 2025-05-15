@@ -32,6 +32,11 @@ jobs:
       - name: Build frontend
         run: npm run build
 
+      - name: Set Git user information
+        run: |
+          git config --global user.name "mpgzz"
+          git config --global user.email "a00837313@tec.mx"
+
       - name: Deploy to GitHub Pages
         run: npm run deploy
         env:
