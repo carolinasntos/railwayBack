@@ -1,4 +1,4 @@
-name: Deploy Front to GitHub Pages
+name: Build y deploy de front
 
 on:
   push:
@@ -9,31 +9,36 @@ permissions:
   contents: write
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: front
+    build: 
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout 
+                uses: actions/checkout@v3
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+            -   name: Configurar Node.js
+                uses: actions/setup-node@v3
+                with:
+                    node-version: '18'
+            
+            -   name: Instalar dependencias
+                run: npm install
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+            -   name: Ejecutar lin
+                run: npm run lint
+                continue-on-error: true
 
-      - name: Install dependencies
-        run: npm install
+            -   name: Hacer pruebas
+                run: npm test
+                continue-on-error: true
+            
+            -   name: Build
+                run: npm run build
 
-      - name: Build frontend
-        run: npm run build
+            -   name: Verificar output
+                run: ls -ls dist
 
-      - name: Deploy with actions-gh-pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: front/dist
-          user_name: "carolinasntos"
-          user_email: "a01174992@tec.mx"
+            -   name: Deploy
+                uses: peaceiris/actions-gh-pages@v3
+                with:
+                    github_token: ${{ secrets.GITHUB_TOKEN }}
+                    publish_dir: ./dist
