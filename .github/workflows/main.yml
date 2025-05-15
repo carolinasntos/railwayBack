@@ -1,55 +1,44 @@
-name: Deploy Front to GitHub Pages
+name: Build y deploy de front
 
 on:
   push:
     branches:
-      - main  # Or your working branch
+      - main
+
+permissions:
+  contents: write
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: front  # Ensure npm commands are run inside the 'front' directory
+    build: 
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout 
+                uses: actions/checkout@v3
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+            -   name: Configurar Node.js
+                uses: actions/setup-node@v3
+                with:
+                    node-version: '18'
+            
+            -   name: Instalar dependencias
+                run: npm install
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+            -   name: Ejecutar lin
+                run: npm run lint
+                continue-on-error: true
 
-      - name: Install dependencies (with cache clearing)
-        run: |
-          echo "Removing node_modules and reinstalling dependencies"
-          rm -rf node_modules
-          npm install
+            -   name: Hacer pruebas
+                run: npm test
+                continue-on-error: true
+            
+            -   name: Build
+                run: npm run build
 
-      - name: List available npm scripts (Debugging)
-        run: |
-          echo "Listing npm scripts available:"
-          npm run
+            -   name: Verificar output
+                run: ls -ls dist
 
-      - name: Build frontend
-        run: |
-          echo "Building frontend..."
-          npm run build
-
-      - name: Set Git user information and deploy
-        run: |
-          echo "Setting Git user information..."
-          git config user.email "github-actions@github.com"
-          git config user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git config --global user.name "github-actions"
-          echo "Deploying to GitHub Pages..."
-          npm run deploy
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Debugging: Show Git Config
-        run: |
-          echo "Showing git config for debugging purposes:"
-          git config --list
+            -   name: Deploy
+                uses: peaceiris/actions-gh-pages@v3
+                with:
+                    github_token: ${{ secrets.GITHUB_TOKEN }}
+                    publish_dir: ./dist
