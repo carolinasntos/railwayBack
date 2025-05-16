@@ -1,5 +1,5 @@
-import hana from '@sap/hana-client';
-import dotenv from 'dotenv';
+import hana from "@sap/hana-client";
+import dotenv from "dotenv";
 dotenv.config();
 
 const connParams = {
@@ -14,14 +14,14 @@ export const getAllReportes = () => {
     const conn = hana.createConnection();
     conn.connect(connParams, (err) => {
       if (err) {
-        console.error('Error al conectar a SAP HANA:', err);
+        console.error("Error al conectar a SAP HANA:", err);
         return reject(err);
       }
 
-      conn.exec('SELECT * FROM "DBADMIN"."Reporte"', (err, rows) => {
+      conn.exec("SELECT * FROM \"DBADMIN\".\"Reporte\"", (err, rows) => {
         conn.disconnect();
         if (err) {
-          console.error(' Error al obtener los reportes:', err);
+          console.error(" Error al obtener los reportes:", err);
           return reject(err);
         }
         resolve(rows);
@@ -36,7 +36,7 @@ export const updateReporte = (id, reporte) => {
     const conn = hana.createConnection();
     conn.connect(connParams, (err) => {
       if (err) {
-        console.error('Error al conectar a SAP HANA:', err);
+        console.error("Error al conectar a SAP HANA:", err);
         return reject(err);
       }
 
@@ -58,7 +58,7 @@ export const updateReporte = (id, reporte) => {
         reporte.descripcion,
         reporte.urgencia,
         reporte.resuelto ? 1 : 0, // HANA espera 1/0 para boolean
-        reporte.detalleSolucion || '',
+        reporte.detalleSolucion || "",
         new Date(reporte.fechaReporte),
         new Date(reporte.fechaResolucion),
         id
@@ -67,14 +67,14 @@ export const updateReporte = (id, reporte) => {
       conn.prepare(query, (err, statement) => {
         if (err) {
           conn.disconnect();
-          console.error('Error preparando la consulta:', err);
+          console.error("Error preparando la consulta:", err);
           return reject(err);
         }
 
         statement.exec(params, (err, rows) => {
           conn.disconnect();
           if (err) {
-            console.error('Error ejecutando UPDATE:', err);
+            console.error("Error ejecutando UPDATE:", err);
             return reject(err);
           }
           resolve(rows);

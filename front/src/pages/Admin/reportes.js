@@ -41,6 +41,6 @@ const reportes = [
     "resuelto": true,
     "fechaReporte": "2025-03-28T14:10:00"
   },
-]
+];
 
-export default reportes
+export default reportes;

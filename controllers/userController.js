@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 // Controller to get all users
 export const getUsers = async (req, res) => {
   try {
-    const query = `SELECT * FROM Usuario`;
+    const query = "SELECT * FROM Usuario";
     connection.exec(query, [], (err, result) => {
       if (err) {
         return res.status(500).json({ error: err.message });
@@ -25,7 +25,7 @@ export const createUser = async (req, res) => {
     // Hash the password before saving it
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const query = `INSERT INTO Usuario (nombreUsuario, correo, contrasena) VALUES (?, ?, ?)`;
+    const query = "INSERT INTO Usuario (nombreUsuario, correo, contrasena) VALUES (?, ?, ?)";
     connection.exec(query, [username, email, hashedPassword], (err, result) => {
       if (err) {
         return res.status(500).json({ error: err.message });
@@ -90,7 +90,7 @@ export const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const query = `DELETE FROM USERS WHERE ID = ?`;
+    const query = "DELETE FROM USERS WHERE ID = ?";
 
     connection.prepare(query, (err, statement) => {
       if (err) {
@@ -113,4 +113,4 @@ export const deleteUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-}
+};

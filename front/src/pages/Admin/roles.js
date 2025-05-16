@@ -6,5 +6,5 @@ const roles = [
     "Vendedor"
     ];
   
-  export default roles
+  export default roles;
   

@@ -1,10 +1,10 @@
-import express from 'express';
-import connection from '../config/db.js';
+import express from "express";
+import connection from "../config/db.js";
 
 const router = express.Router();
 
 // VISTA GENERAL DEL PROVEEDOR
-router.get('/general', (req, res) => {
+router.get("/general", (req, res) => {
   const sql = `
     SELECT 
       p."idPedido" AS "id",  --  ID incluido aquí
@@ -29,8 +29,8 @@ router.get('/general', (req, res) => {
 
   connection.exec(sql, (err, rows) => {
     if (err) {
-      console.error('Error fetching general pedidos:', err);
-      return res.status(500).json({ error: 'Error fetching general pedidos' });
+      console.error("Error fetching general pedidos:", err);
+      return res.status(500).json({ error: "Error fetching general pedidos" });
     }
 
     res.json(rows);
@@ -38,7 +38,7 @@ router.get('/general', (req, res) => {
 });
 
 // VISTA DETALLADA DE UN SOLO PEDIDO
-router.get('/detalle/:idPedido', (req, res) => {
+router.get("/detalle/:idPedido", (req, res) => {
   const { idPedido } = req.params;
 
   const sql = `
@@ -67,12 +67,12 @@ router.get('/detalle/:idPedido', (req, res) => {
 
   connection.exec(sql, [idPedido], (err, rows) => {
     if (err) {
-      console.error('Error fetching detailed pedido:', err);
-      return res.status(500).json({ error: 'Error fetching detailed pedido' });
+      console.error("Error fetching detailed pedido:", err);
+      return res.status(500).json({ error: "Error fetching detailed pedido" });
     }
 
     if (rows.length === 0) {
-      return res.status(404).json({ error: 'Pedido not found' });
+      return res.status(404).json({ error: "Pedido not found" });
     }
 
     res.json(rows[0]);
@@ -80,18 +80,18 @@ router.get('/detalle/:idPedido', (req, res) => {
 });
 
 // Correcting the backend to expect `estatusPedido`
-router.put('/estatus/:idPedido', (req, res) => {
+router.put("/estatus/:idPedido", (req, res) => {
   const { idPedido } = req.params; // Get the order ID from the URL
   const { estatusPedido } = req.body; // Expect `estatusPedido` here
 
   // Log to check if we are receiving the estatus value
-  console.log('Request body:', req.body);
-  console.log('Valor recibido para estatus:', estatusPedido);
+  console.log("Request body:", req.body);
+  console.log("Valor recibido para estatus:", estatusPedido);
 
   // Validate the estatus to ensure it's a valid number (1, 2, 3, or 4)
   if (![1, 2, 3, 4].includes(estatusPedido)) {
     return res.status(400).json({
-      error: 'Estatus inválido.',
+      error: "Estatus inválido.",
       message: `El valor recibido para el estatus es '${estatusPedido}', pero debe ser 1, 2, 3 o 4.`
     });
   }
@@ -106,15 +106,15 @@ router.put('/estatus/:idPedido', (req, res) => {
   // Execute the query to update the order status
   connection.exec(sql, [estatusPedido, idPedido], (err, result) => {
     if (err) {
-      console.error('Error actualizando el estatus:', err);
-      return res.status(500).json({ error: 'Error actualizando el estatus del pedido' });
+      console.error("Error actualizando el estatus:", err);
+      return res.status(500).json({ error: "Error actualizando el estatus del pedido" });
     }
 
     if (result.rowCount === 0) {
-      return res.status(404).json({ error: 'Pedido no encontrado' });
+      return res.status(404).json({ error: "Pedido no encontrado" });
     }
 
-    res.json({ success: true, message: 'Estatus actualizado correctamente' });
+    res.json({ success: true, message: "Estatus actualizado correctamente" });
   });
 });
 

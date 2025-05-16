@@ -26,7 +26,7 @@ app.use("/login", loginRoutes);  // Existing login routes
 app.use("/api/usuarios", adminCrudRoutes);  // New admin route to manage users
 app.use("/reportes", reporteRoutes);  // Existing report routes
 app.use("/api/pedidos", pedidosRouter);
-app.use('/api/usuarios', usuarioRouter);
+app.use("/api/usuarios", usuarioRouter);
 
 // Swagger Documentation
 {/*app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));*/}

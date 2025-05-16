@@ -12,7 +12,7 @@ router.post("/login", async (req, res) => {
 
   try {
     // Look up the user by email
-    const query = `SELECT * FROM Usuario WHERE correo = ?`;
+    const query = "SELECT * FROM Usuario WHERE correo = ?";
     const user = await db.query(query, [correo]); // Assuming you're using MySQL or similar
 
     if (!user || user.length === 0) {
