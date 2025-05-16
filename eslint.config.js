@@ -10,12 +10,10 @@ export default [
         __dirname: "readonly"
       }
     },
-    linterOptions: {
-      reportUnusedDisableDirectives: true,
-    },
     rules: {
-      semi: "error",
-      quotes: ["error", "double"]
+      // Permite comillas simples
+      quotes: ["error", "single"], 
+      semi: "error"
     }
   }
 ];
