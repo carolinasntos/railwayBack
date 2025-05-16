@@ -3,17 +3,11 @@ export default [
     files: ["**/*.js"],
     languageOptions: {
       ecmaVersion: 2021,
-      sourceType: "module",
-      globals: {
-        require: "readonly",
-        module: "readonly",
-        __dirname: "readonly"
-      }
+      sourceType: "module"
     },
     rules: {
-      // Permite comillas simples
-      quotes: ["error", "single"], 
-      semi: "error"
+      quotes: ["error", "double"], // ← usa comillas dobles
+      semi: ["error", "always"]
     }
   }
 ];
